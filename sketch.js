@@ -1,6 +1,7 @@
 // jshint esversion: 9
 
 let dots = [];
+const fps = 200;
 
 function preload() {}
 
@@ -16,6 +17,7 @@ function windowResized() {
 }
 
 function draw() {
+  frameRate(fps);
   background(22);
   dots.forEach((d) => {
     d.update(dots);

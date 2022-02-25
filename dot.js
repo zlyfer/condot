@@ -4,7 +4,7 @@ class Dot {
   constructor(x, y) {
     this.pos = createVector(x, y);
     // this.vel = createVector(random(-1, 1), random(-1, 1));
-    this.vel = createVector(0, 0.4);
+    this.vel = createVector(0, fps < 120 ? 0.4 : 0.2);
     this.vel.rotate(random(-PI, PI));
   }
 
