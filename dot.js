@@ -1,35 +1,27 @@
 // jshint esversion: 9
 
 class Dot {
-  constructor(x, y) {
-    this.pos = createVector(x, y);
+  constructor() {
+    this.pos = createVector(random(5, width - 5), random(5, height - 5));
     this.vel = createVector(0, fps < 120 ? 0.4 : 0.2);
     this.vel.rotate(random(-PI, PI));
   }
 
   update(dots) {
     this.move();
-    this.draw(dots);
+    this.draw();
+    this.drawConnections(dots);
   }
 
   move() {
     this.pos.add(this.vel);
-    if (this.pos.x < 5 || this.pos.x > width - 5) {
-      this.vel.x *= -1;
-    }
-    if (this.pos.y < 5 || this.pos.y > height - 5) {
-      this.vel.y *= -1;
-    }
-    if (this.pos.x < 0 || this.pos.x > width) {
-      this.pos.x = random(5, width - 5);
-    }
-    if (this.pos.y < 0 || this.pos.y > height) {
-      this.pos.y = random(5, height - 5);
-    }
+    if (this.pos.x < 5 || this.pos.x > width - 5) this.vel.x *= -1;
+    if (this.pos.y < 5 || this.pos.y > height - 5) this.vel.y *= -1;
+    if (this.pos.x < 0 || this.pos.x > width || this.pos.y < 0 || this.pos.y > height)
+      this.pos = createVector(random(5, width - 5), random(5, height - 5));
   }
 
-  draw(dots) {
-    // Draw dot:
+  draw() {
     push();
     noFill();
     strokeWeight(3);
@@ -37,12 +29,15 @@ class Dot {
     translate(this.pos.x, this.pos.y);
     point(0, 0);
     pop();
+  }
 
+  drawConnections(dots) {
     dots.forEach((d) => {
-      if (d !== this && d.pos.dist(this.pos) < connectionDistance) {
+      let distance = d.pos.dist(this.pos);
+      if (d !== this && distance < connectionDistance) {
         push();
-        strokeWeight(map(d.pos.dist(this.pos), 0, 150, 0.5, 0.1));
-        stroke(map(d.pos.dist(this.pos), 0, 50, theme.linesMin, theme.linesMax));
+        strokeWeight(map(distance, 0, connectionDistance, 0.5, 0.1));
+        stroke(theme.connection, map(distance, 0, connectionDistance, 255, 0));
         line(this.pos.x, this.pos.y, d.pos.x, d.pos.y);
         pop();
       }

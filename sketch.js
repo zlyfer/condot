@@ -6,7 +6,7 @@ const fps = 200;
 const drawArea = 100;
 const maxDraw = 8;
 const drawForce = 0.008;
-const connectionDistance = 150;
+const connectionDistance = 100;
 
 // theme:
 const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
@@ -14,29 +14,26 @@ const themes = {
   light: {
     background: 255,
     dots: 0,
-    linesMin: 0,
-    linesMax: 50,
+    connection: 50,
   },
   dark: {
     background: 0,
     dots: 255,
-    linesMin: 50,
-    linesMax: 255,
+    connection: 255,
   },
-  mLight: {
+  mlight: {
     background: 240,
     dots: 22,
-    linesMin: 22,
-    linesMax: 72,
+    connection: 72,
   },
-  mDark: {
+  mdark: {
     background: 22,
     dots: 220,
-    linesMin: 220,
-    linesMax: 150,
+    connection: 150,
   },
 };
-var theme = mediaQuery.matches ? themes.mDark : themes.mLight;
+var theme = mediaQuery.matches ? themes.mdark : themes.mlight;
+theme = themes.mdark;
 
 let dots = [];
 
@@ -45,15 +42,11 @@ function preload() {}
 function setup() {
   createCanvas(windowWidth, windowHeight);
   for (let i = 0; i < (windowWidth * windowHeight) / Math.pow(144, 2); i++) {
-    dots.push(new Dot(random(5, width - 5), random(5, height - 5)));
+    dots.push(new Dot());
   }
 
   mediaQuery.addEventListener("change", (e) => {
-    if (e.matches) {
-      theme = themes.mDark;
-    } else {
-      theme = themes.mLight;
-    }
+    theme = e.matches ? themes.mdark : themes.mlight;
   });
 }
 
