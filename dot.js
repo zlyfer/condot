@@ -1,8 +1,8 @@
 // jshint esversion: 9
 
 class Dot {
-  constructor() {
-    this.pos = createVector(random(5, width - 5), random(5, height - 5));
+  constructor(x = random(5, width - 5), y = random(5, height - 5)) {
+    this.pos = createVector(x, y);
     this.vel = createVector(0, fps < 120 ? 0.4 : 0.2);
     this.vel.rotate(random(-PI, PI));
   }

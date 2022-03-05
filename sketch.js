@@ -6,7 +6,7 @@ const fps = 200;
 const drawArea = 100;
 const maxDraw = 8;
 const drawForce = 0.008;
-const connectionDistance = 100;
+const connectionDistance = 150;
 
 // theme:
 const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
@@ -32,15 +32,21 @@ const themes = {
     connection: 150,
   },
 };
+
 var theme = mediaQuery.matches ? themes.mdark : themes.mlight;
 theme = themes.mdark;
 
-let dots = [];
+var dots = [];
 
-function preload() {}
+// function keyPressed() {}
+
+// function mousePressed() {
+//   dots.push(new Dot(mouseX, mouseY));
+// }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  dots.push(new Dot());
   for (let i = 0; i < (windowWidth * windowHeight) / Math.pow(144, 2); i++) {
     dots.push(new Dot());
   }
@@ -57,6 +63,7 @@ function windowResized() {
 function draw() {
   frameRate(fps);
   background(theme.background);
+  // if (dots.length > 0) test();
   let inRange = 0;
   dots.forEach((d) => {
     if (dist(d.pos.x, d.pos.y, mouseX, mouseY) < drawArea) {
@@ -68,3 +75,10 @@ function draw() {
     d.update(dots);
   });
 }
+
+// function test() {
+//   push();
+//   stroke("#f0f");
+//   line(dots[dots.length - 1].pos.x, dots[dots.length - 1].pos.y, mouseX, mouseY);
+//   pop();
+// }
