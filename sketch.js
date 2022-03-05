@@ -47,9 +47,7 @@ var dots = [];
 function setup() {
   createCanvas(windowWidth, windowHeight);
   dots.push(new Dot());
-  for (let i = 0; i < (windowWidth * windowHeight) / Math.pow(144, 2); i++) {
-    dots.push(new Dot());
-  }
+  for (let i = 0; i < (windowWidth * windowHeight) / Math.pow(85, 2); i++) dots.push(new Dot());
 
   mediaQuery.addEventListener("change", (e) => {
     theme = e.matches ? themes.mdark : themes.mlight;
