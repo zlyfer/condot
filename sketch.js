@@ -72,6 +72,17 @@ function draw() {
     }
     d.update(dots);
   });
+  showFPS();
+}
+
+function showFPS() {
+  push();
+  fill(255);
+  stroke(0);
+  strokeWeight(1);
+  textSize(12);
+  text(Math.floor(frameRate()), 10, 20);
+  pop();
 }
 
 // function test() {
